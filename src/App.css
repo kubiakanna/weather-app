@@ -6,12 +6,28 @@
   box-sizing: border-box;
 }
 
-body {
+.app {
   font-family: 'Noto Sans', sans-serif;
   min-height: 100vh;
-  background: linear-gradient(to left top, rgba(255,0,0,.8), rgba(255,0,0,0));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.App {
+.app__warm {
+  background: linear-gradient(to left top, rgba(240, 210, 144, 0.2) 80%, rgba(222, 131, 77, 0.8) 20%),
+  linear-gradient(to right top, rgba(240, 210, 144, 0.2) 60%, rgba(222, 131, 77,0.8) 40%);
+}
+
+.main-display {
   text-align: center;
+  width: 380px;
+  margin-top: -110px;
+  padding: 0 10px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.main-display__warm {
+  background-color: rgba(120,29,66, 0.8);
 }
