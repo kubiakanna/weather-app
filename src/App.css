@@ -19,6 +19,11 @@
   linear-gradient(to right top, rgba(240, 210, 144, 0.2) 60%, rgba(222, 131, 77,0.8) 40%);
 }
 
+.app__cold {
+  background: linear-gradient(to left top, rgba(255, 227, 227, 0.2) 80%, rgba(201, 204, 213, 0.8) 20%),
+  linear-gradient(to right top, rgba(255, 227, 227, 0.2) 60%, rgba(201, 204, 213, 0.8) 40%);
+}
+
 .main-display {
   text-align: center;
   width: 380px;
@@ -30,4 +35,8 @@
 
 .main-display__warm {
   background-color: rgba(120,29,66, 0.8);
+}
+
+.main-display__cold {
+  background-color: rgba(147, 181, 198, 0.9);
 }

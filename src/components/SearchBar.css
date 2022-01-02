@@ -18,6 +18,10 @@
     background-color: rgba(240, 210, 144, 0.9);
 }
 
+.search-bar__cold {
+    background-color: rgba(201, 204, 213, 0.9);
+}
+
 .search-btn {
     width: 10%;
     background-color: transparent;
@@ -31,6 +35,10 @@
 
 .search-btn__warm {
     color: rgba(240, 210, 144, 0.9);
+}
+
+.search-btn__cold {
+    color: rgba(201, 204, 213, 0.9);
 }
 
 .search-btn:active {

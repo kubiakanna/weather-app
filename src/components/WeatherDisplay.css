@@ -11,6 +11,10 @@
     background: linear-gradient(rgba(0,0,0,0), rgba(240, 210, 144, 0.8));
 }
 
+.display__cold {
+    background: linear-gradient(rgba(0,0,0,0), rgba(201, 204, 213, 1));
+}
+
 .city {
     font-size: 30px;
 }
