@@ -12,7 +12,7 @@ interface ISearchBarProps {
 const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeather }) => {
   const key = 'bba1089143d06781004f13cb2fa068c1';
 
-  let input = document.getElementById("searchInput");
+  let input = document.getElementById("searchCityInput");
   let myBtn = document.getElementById("searchBtn");
   if(input !== null && city !== '') {
     input.addEventListener("keydown", function(e) {
@@ -41,6 +41,9 @@ const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeath
         setWeather(result);
         setCity('');
         console.log(result)
+      })
+      .catch(error => {
+        console.log(error);
       });
     };
   };
@@ -71,7 +74,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeath
     return (
         <div className='search'>
           <input
-            id="searchInput"
+            id="searchCityInput"
             className={searchBarClasses()}
             type="text"
             placeholder="Enter city name"
