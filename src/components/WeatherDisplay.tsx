@@ -13,7 +13,7 @@ const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
         let day = date.getDate();
         let month = months[date.getMonth()];
         let year = date.getFullYear();
-        
+        if(typeof weather.main.temp !== 'undefined')
         return `${day} ${month} ${year}`;
     }
 
@@ -21,52 +21,71 @@ const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
         let dayOfTheWeek = days[date.getDay()];
-
+        if(typeof weather.main.temp !== 'undefined')
         return dayOfTheWeek;
     }
 
     const time = (date: Date) => {
         let currTime = date.getHours() + ":" + ((date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes());
-
+        if(typeof weather.main.temp !== 'undefined')
         return currTime;
     }
 
-    const iconType = (weather: any) => {
-        switch(weather.weather[0].main) {
-            case 'Snow':
-                return <i className="display-icon fas fa-solid fa-snowflake" />;
-            case 'Clouds':
-                return <i className="display-icon fas fa-solid fa-cloud" />;
-            case 'Mist':
-            case 'Smoke':
-            case 'Haze':
-            case 'Dust':
-            case 'Fog':
-            case 'Sand':
-            case 'Ash':
-                return <i className="display-icon fas fa-solid fa-smog" />;
-            case 'Clear':
-                return <i className="display-icon fas fa-solid fa-sun" />;
-            case 'Drizzle':
-            case 'Rain':
-                return <i className="display-icon fas fa-solid fa-cloud-rain" />;
-            case 'Thunderstorm':
-                return <i className="display-icon fas fa-solid fa-bolt" />;
-            case 'Squall':
-            case 'Tornado':
-                return <i className="display-icon fas fa-solid fa-wind" />;      
-            default:
-                return <div className="temperature">{weather.weather[0].description}</div>;
+    const iconType = () => {
+        if(typeof weather.main.temp !== 'undefined') {
+            switch(weather.weather[0].main) {
+                case 'Snow':
+                    return <i className="display-icon fas fa-solid fa-snowflake" />;
+                case 'Clouds':
+                    return <i className="display-icon fas fa-solid fa-cloud" />;
+                case 'Mist':
+                case 'Smoke':
+                case 'Haze':
+                case 'Dust':
+                case 'Fog':
+                case 'Sand':
+                case 'Ash':
+                    return <i className="display-icon fas fa-solid fa-smog" />;
+                case 'Clear':
+                    return <i className="display-icon fas fa-solid fa-sun" />;
+                case 'Drizzle':
+                case 'Rain':
+                    return <i className="display-icon fas fa-solid fa-cloud-rain" />;
+                case 'Thunderstorm':
+                    return <i className="display-icon fas fa-solid fa-bolt" />;
+                case 'Squall':
+                case 'Tornado':
+                    return <i className="display-icon fas fa-solid fa-wind" />;      
+                default:
+                    return <div className="temperature">{weather.weather[0].description}</div>;
+            }
         }
     }
-    const temperature = 12 /*Math.round(weather.main.temp)*/;
-    let displayClasses = 'display display__warm';
-    if(temperature < 15) {
-        displayClasses = 'display display__cold';
+    const temperature = () => {
+        if(typeof weather.main.temp !== 'undefined') {
+            return `${Math.round(weather.main.temp)}°C`;
+        }
     }
 
+    const displayClasses = () => {
+        if(typeof weather.main.temp !== 'undefined') {
+            const temperature = Math.round(weather.main.temp);
+            if(temperature < 15) {
+                return 'display display__cold';
+            }
+            return 'display display__warm';
+        }
+    }
+
+    const location = () => {
+        if(typeof weather.main.temp !== 'undefined') {
+            return `${weather.name}, ${weather.sys.country}`;
+        }
+    }
+
+
     return (
-        <div className={(typeof weather.main != undefined) ? displayClasses : ''}>
+        <div className={displayClasses()}>
             <div className="day">
                 {dayWeek(new Date())}
             </div>
@@ -77,11 +96,11 @@ const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
                 {time(new Date())}
             </div>
             <div className='city'>
-                {/* {weather.name}, {weather.sys.country} */}New York, US
+                {location()}
             </div>
-            {/* {iconType(weather)} */}<i className="display-icon fas fa-solid fa-cloud" />
+            {iconType()}
             <div className="temperature">
-                {temperature}°C
+                {temperature()}
             </div>       
         </div>
     )

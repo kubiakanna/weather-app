@@ -5,8 +5,8 @@ import $ from "jquery";
 interface ISearchBarProps {
   'city': string,
   'setCity': React.Dispatch<React.SetStateAction<string>>,
-  'weather': {},
-  'setWeather': React.Dispatch<React.SetStateAction<{}>>
+  'weather': any,
+  'setWeather': React.Dispatch<React.SetStateAction<any>>
 }
 
 const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeather }) => {
@@ -45,19 +45,34 @@ const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeath
     };
   };
 
-  let searchBarClasses = 'search-bar search-bar__warm';
-  let searchBtnClasses = 'search-btn search-btn__warm';
-
-  const temperature = 12 /*Math.round(weather.main.temp)*/;
-    if(temperature < 15) {
-      searchBarClasses = 'search-bar search-bar__cold';
-      searchBtnClasses = 'search-btn search-btn__cold';
+  const searchBarClasses = () => {
+    if(typeof weather.main.temp !== 'undefined') {
+        const temperature = Math.round(weather.main.temp);
+        if(temperature < 15) {
+            return 'search-bar search-bar__cold';
+        }
+        return 'search-bar search-bar__warm';
     }
+    return 'search-bar';
+  }
+
+  const searchBtnClasses = () => {
+    if(typeof weather.main.temp !== 'undefined') {
+        const temperature = Math.round(weather.main.temp);
+        if(temperature < 15) {
+            return 'search-btn search-btn__cold';
+        }
+        return 'search-btn search-btn__warm';
+    }
+    return 'search-btn';
+
+  }
+
     return (
         <div className='search'>
           <input
             id="searchInput"
-            className={searchBarClasses}
+            className={searchBarClasses()}
             type="text"
             placeholder="Enter city name"
             onChange={ handleChange }
@@ -65,7 +80,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ city, setCity, weather, setWeath
             />
           <button
             id="searchBtn"
-            className={searchBtnClasses}
+            className={searchBtnClasses()}
             type="submit"
             onClick={ handleSubmit }
             >

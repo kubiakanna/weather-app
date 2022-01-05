@@ -12,6 +12,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(to left top, rgba(242, 221, 193, 0.2) 80%, rgba(226, 194, 185, 0.8) 20%),
+  linear-gradient(to right top, rgba(242, 221, 193, 0.2) 60%, rgba(153, 167, 153, 0.8) 40%);
 }
 
 .app__warm {
@@ -31,6 +33,7 @@
   padding: 0 10px 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  background-color: rgba(211, 228, 205, 0.8);
 }
 
 .main-display__warm {

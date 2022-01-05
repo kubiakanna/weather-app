@@ -5,21 +5,34 @@ import { useState } from 'react';
 
 function App() {
   const [city, setCity] = useState('');
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState({'main': {'temp': undefined}});
 
-  let appClasses = 'app app__warm';
-  let mainDisplayClasses = 'main-display main-display__warm';
+  const appClasses = () => {
+      if(typeof weather.main.temp !== 'undefined') {
+        const temperature = Math.round(weather.main.temp);
+        if(temperature < 15) {
+            return 'app app__cold';
+        }
+        return 'app app__warm';
+      }
+      return 'app';
+  }
 
-  const temperature = 12 /*Math.round(weather.main.temp)*/;
-    if(temperature < 15) {
-      appClasses = 'app app__cold';
-      mainDisplayClasses = 'main-display main-display__cold';
+  const mainDisplayClasses = () => {
+    if(typeof weather.main.temp !== 'undefined') {
+      const temperature = Math.round(weather.main.temp);
+      if(temperature < 15) {
+          return 'main-display main-display__cold';
+      }
+      return 'main-display main-display__warm';
     }
+    return 'main-display';
+  }
 
   return (
-    <div className={appClasses}>
-      <div className={mainDisplayClasses}>
-        <SearchBar city={ city } setCity={ setCity } weather={ weather }setWeather={ setWeather } />
+    <div className={appClasses()}>
+      <div className={mainDisplayClasses()}>
+        <SearchBar city={ city } setCity={ setCity } weather={ weather } setWeather={ setWeather } />
         <WeatherDisplay weather={ weather } />
       </div>
     </div>
