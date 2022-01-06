@@ -8,32 +8,52 @@ interface IWeatherDisplayProps {
 const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
 
     const dateDisplay = (date: Date) => {
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        
+        let months = ["January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+
         let day = date.getDate();
         let month = months[date.getMonth()];
         let year = date.getFullYear();
-        if(typeof weather.main.temp !== 'undefined')
+        
         return `${day} ${month} ${year}`;
     }
 
     const dayWeek = (date: Date) => {
-        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let days = ["Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ];
 
         let dayOfTheWeek = days[date.getDay()];
-        if(typeof weather.main.temp !== 'undefined')
+        
         return dayOfTheWeek;
     }
 
     const time = (date: Date) => {
-        let currTime = date.getHours() + ":" + ((date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes());
-        if(typeof weather.main.temp !== 'undefined')
+        let minutes = date.getMinutes();
+        let minutesString = ((minutes < 10) ? "0" + minutes : minutes);
+        let currTime = date.getHours() + ":" + minutesString;
+
         return currTime;
     }
 
     const iconType = () => {
-        if(typeof weather.main.temp !== 'undefined') {
-            switch(weather.weather[0].main) {
+            switch (weather.weather[0].main) {
                 case 'Snow':
                     return <i className="display-icon fas fa-solid fa-snowflake" />;
                 case 'Clouds':
@@ -55,37 +75,23 @@ const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
                     return <i className="display-icon fas fa-solid fa-bolt" />;
                 case 'Squall':
                 case 'Tornado':
-                    return <i className="display-icon fas fa-solid fa-wind" />;      
+                    return <i className="display-icon fas fa-solid fa-wind" />;
                 default:
                     return <div className="temperature">{weather.weather[0].description}</div>;
             }
-        }
-    }
-    const temperature = () => {
-        if(typeof weather.main.temp !== 'undefined') {
-            return `${Math.round(weather.main.temp)}°C`;
-        }
     }
 
     const displayClasses = () => {
-        if(typeof weather.main.temp !== 'undefined') {
             const temperature = Math.round(weather.main.temp);
-            if(temperature < 15) {
-                return 'display display__cold';
+            if (temperature < 15) {
+                return 'display__cold';
             }
-            return 'display display__warm';
+            return 'display__warm';
         }
-    }
 
-    const location = () => {
-        if(typeof weather.main.temp !== 'undefined') {
-            return `${weather.name}, ${weather.sys.country}`;
-        }
-    }
-
-
+    if(typeof weather.main.temp !== 'undefined') {
     return (
-        <div className={displayClasses()}>
+        <div className={'display ' + displayClasses()}>
             <div className="day">
                 {dayWeek(new Date())}
             </div>
@@ -96,14 +102,17 @@ const WeatherDisplay: React.FC<IWeatherDisplayProps> = ({ weather }) => {
                 {time(new Date())}
             </div>
             <div className='city'>
-                {location()}
+                {`${weather.name}, ${weather.sys.country}`}
             </div>
             {iconType()}
             <div className="temperature">
-                {temperature()}
-            </div>       
+                {Math.round(weather.main.temp)}°C
+            </div>
         </div>
     )
+    } else {
+        return (null);
+    }
 }
 
 export default WeatherDisplay;
