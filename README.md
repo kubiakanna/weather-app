@@ -1,6 +1,6 @@
 # Weather App
 
-A weather app allowing the user to display weather in different places all around the world. Developed with React and TypeScript.
+A weather app allowing the user to check weather in different places all around the world. Developed with React and TypeScript.
 
 # Screenshots
 
